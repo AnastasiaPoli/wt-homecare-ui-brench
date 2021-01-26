@@ -1,0 +1,16 @@
+
+export const LOGIN= 'LOGIN';
+export const LOGOUT= 'LOGOUT';
+export const SYSTEM_MESSAGE = 'SYSTEM_MESSAGE';
+export const ADMIN_DASHBOARD = 'ADMIN_DASHBOARD';
+export const INIT_ADDUSER_INFO = 'INIT_ADDUSER_INFO';
+export const FETCH_USER = 'FETCH_USER';
+export const FETCH_PLAN_INFO = 'FETCH_PLAN_INFO';
+export const CHANGE_MY_PASSWORD ='CHANGE_MY_PASSWORD';
+export const FETCH_MY_SCHEDULES = 'FETCH_MY_SCHEDULES';
+export const GIVE_FEEDBACK = 'GIVE_FEEDBACK';
+export const SHIFT_TRADE = 'SHIFT_TRADE';
+export const SAVE_MY_PROFILE = 'SAVE_MY_PROFILE';
+export const UPDATE_MY_PASSWORD = 'UPDATE_MY_PASSWORD';
+export const SAVE_USER = 'SAVE_USER';
+

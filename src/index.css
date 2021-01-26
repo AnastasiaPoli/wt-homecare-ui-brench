@@ -1,0 +1,14 @@
+body {
+  background: #efeff5;
+  display: flex;
+  flex-direction: column;
+  color: #646c9a !important;
+}
+
+html, body {
+  font-family: Poppins;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
