@@ -8,6 +8,7 @@ import BreadCrumb from '../components/top-navigation/BreadCrumb';
 import { PrivateRoute } from '../Routes';
 import HealthcareDashboard from './dashboard/HealthcareDashboard';
 import ResidentHome from './resident/ResidentHome';
+import ResidentAdd from './resident/ResidentAdd';
 import GroupList from './group/GroupList';
 import GroupAdd from './group/GroupAdd';
 import GroupEdit from './group/GroupEdit';
@@ -15,9 +16,11 @@ import CommunityList from './community/CommunityList';
 import CommunityAdd from './community/CommunityAdd';
 import CommunityEdit from './community/CommunityEdit';
 import HealthcareReportHome from './report/HealthcareReportHome';
+import ReactLogo from '../images/u47.svg'
+import '../App.css'
 
 export const drawerWidth = 240;
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     width: '100%'
@@ -27,7 +30,10 @@ const useStyles = makeStyles(() => ({
   },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0
+    flexShrink: 0,
+    [theme.breakpoints.down('sm')]: {
+      display: 'none'
+    }
   },
   drawerPaper: {
     width: drawerWidth,
@@ -35,6 +41,9 @@ const useStyles = makeStyles(() => ({
   },
   drawerContainer: {
     overflow: 'auto'
+  },
+  img: {
+    margin: '50px'
   }
 }));
 
@@ -44,27 +53,26 @@ export default function HealthcareHome() {
   return (
     <React.Fragment>
       <Topbar permissions={getPermissions()} role={getUserProfile()} />
-      <BreadCrumb
-        activeParentLabel="Dashboard"
-        activeParentLink="/dashboard"
-        activeChildLabel="Healthcare"
-        activeChildLink="/healthcare"
-      />
+
+
       <div className={classes.root}>
         <Drawer variant="permanent" className={classes.drawer} classes={{ paper: classes.drawerPaper }}>
           <div className={classes.drawerContainer}>
             <List>
+              <ListItem >
+                <img width={100} height={120} src={ReactLogo} className="img-adjust-container" />
+              </ListItem>
               <ListItem button component={NavLink} to="/healthcare/resident">
-                <ListItemText primary="Manage Residents" />
+                <ListItemText className={"nav-left-menutext-color"} primary="Manage Residents" />
               </ListItem>
               <ListItem button component={NavLink} to="/healthcare/group">
-                <ListItemText primary="Manage Groups" />
+                <ListItemText className={"nav-left-menutext-color"} primary="Manage Groups" />
               </ListItem>
               <ListItem button component={NavLink} to="/healthcare/community">
-                <ListItemText primary="Manage Communities" />
+                <ListItemText className={"nav-left-menutext-color"} primary="Manage Communities" />
               </ListItem>
               <ListItem button component={NavLink} to="/healthcare/report">
-                <ListItemText primary="Reports" />
+                <ListItemText className={"nav-left-menutext-color"} primary="Reports" />
               </ListItem>
             </List>
           </div>

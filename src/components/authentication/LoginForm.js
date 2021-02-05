@@ -110,12 +110,7 @@ class LoginForm extends React.Component {
       );
     } else {
       return (
-        <div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+        <div style={{marginTop:'3rem',display:'flex',flexDirection:'column',alignItems:'center', justifyContent:'center'}}>
           <CircularProgress size={80} />
           <div>... Processing your request</div>
         </div>
@@ -143,11 +138,11 @@ class LoginForm extends React.Component {
           {displaySystemMessage(this.props.authentication)}
           <Container component="main" maxWidth="sm">
             <Paper elevation={4}>
-              <div style={{ marginLeft: '45%' }}>
+              <div style={{ paddingTop: '1.5rem',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column' }}>
                 <Avatar style={{ backgroundColor: 'orange' }}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5" style={{ marginLeft: '-5%' }}>
+                <Typography component="h1" variant="h5">
                   Sign in
                 </Typography>
               </div>

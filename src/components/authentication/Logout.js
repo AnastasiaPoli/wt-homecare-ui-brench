@@ -66,8 +66,11 @@ class Logout extends React.Component{
             color: '#fff',
             backgroundColor: '#008080',
         },
+        lockIcon:{
+            display:'flex',
+            justifyContent:'center'
+        }
     }));
-
 
     buildLoginForm = () => {
 
@@ -119,7 +122,6 @@ class Logout extends React.Component{
 
 
     render() {
-
         return (
             <React.Fragment>
                 <AppBar position="static">
@@ -142,12 +144,12 @@ class Logout extends React.Component{
                     {displaySystemMessage(this.props.authentication)}
                     <Container component="main" maxWidth="sm">
                         <Paper elevation={4}>
-                            <div style={{marginLeft:'45%'}}>
+                            <div style={{display:'flex',justifyContent:'center',marginTop:10}}>
                                 <Avatar style={{backgroundColor :'orange'}}>
                                     <LockOutlinedIcon />
                                 </Avatar>
                                 <Typography component="h1" variant="h5" style={{marginLeft:'-5%'}}>
-                                    Sign in
+                                    Sign in abc
                                 </Typography>
                             </div>
 

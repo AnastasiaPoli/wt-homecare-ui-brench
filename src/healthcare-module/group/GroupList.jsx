@@ -40,7 +40,7 @@ const MyMapComponent = compose(withScriptjs, withGoogleMap)((props) => {
             <GoogleMap defaultZoom={8} defaultCenter={props.defaultCenter}>
                 {props.markers.map((marker, index) => (
                     <Marker key={"marker-" + index} onClick={() => props.handleClick(marker)}
-                            position={{lat: marker.lat, lng: marker.lng}}>
+                            position={{lat: marker.lat, lng: marker.lng}} >
 
                         {props.selectUser === marker &&
                         <InfoWindow options={{closeBoxURL: ``, enableEventPropagation: true}}>
@@ -134,7 +134,7 @@ export default function GroupList() {
                             <Grid item>
                                 <Button
                                     variant="outlined"
-                                    color="primary"
+                                    color="#ff0000"
                                     size="small"
                                     startIcon={<DeleteIcon/>}
                                     onClick={() => handleDeleteGroup(value)}
@@ -181,14 +181,36 @@ export default function GroupList() {
     const handleDialogApply = () => {
         dispatch(deleteGroup(group.hgid));
         setDialogOpen(false);
-    };
+    };  
 
     const AddGroupButton = () => (
         <Grid container justify="center">
             <Grid item>
-                <Button variant="outlined" color="primary" startIcon={<AddIcon/>} component={Link}
-                        to="/healthcare/group/add">
+                <Button variant="outlined" color="secondary" startIcon={<AddIcon/>} component={Link}
+                        to="/healthcare/group/add" style={{backgroundColor:"#015478", color:"#ffffff"}}>
                     Add Group
+                </Button>
+            </Grid>
+        </Grid>
+    );
+
+    const AssignResidentGroup = () => (
+        <Grid container justify="center">
+            <Grid item>
+                <Button variant="outlined" color="default" component={Link}
+                        to="/healthcare/group/add" style={{backgroundColor:"#008080", color:"#ffffff"}}>
+                    Assign Residents to Group
+                </Button>
+            </Grid>
+        </Grid>
+    );
+
+    const AssignEmployeesGroup = () => (
+        <Grid container justify="center">
+            <Grid item>
+                <Button variant="outlined" color="default" component={Link}
+                        to="/healthcare/group/add" style={{backgroundColor:"#02a7f0", color:"#ffffff"}}>
+                    Assign Employees to Groups
                 </Button>
             </Grid>
         </Grid>
@@ -229,7 +251,18 @@ export default function GroupList() {
                     {message}
                 </Alert>
             )}
-            <AddGroupButton/>
+            
+            <Grid container spacing={1} justify="center">
+                <Grid item xl={3} md={3} xs={3}>
+                    <AddGroupButton/>
+                </Grid>
+                <Grid item xl={4} md={4} xs={4}>
+                    <AssignResidentGroup/>
+                </Grid>
+                <Grid item xl={5} md={5} xs={5}>
+                    <AssignEmployeesGroup/>
+                </Grid>
+            </Grid>            
 
             <MUIDataTable
                 title={'Group List'}
@@ -238,7 +271,19 @@ export default function GroupList() {
                 options={options}
                 className={classes.marginTopBottom}
             />
-          <MyMapComponent
+
+            <Grid container spacing={1} justify="center" style={{marginTop: "10px", marginBottom: "20px"}}>
+                <Grid item xl={3} md={3} xs={3}>
+                    <AddGroupButton/>
+                </Grid>
+                <Grid item xl={4} md={4} xs={4}>
+                    <AssignResidentGroup/>
+                </Grid>
+                <Grid item xl={5} md={5} xs={5}>
+                    <AssignEmployeesGroup/>
+                </Grid>
+            </Grid>  
+            <MyMapComponent
               handleClick={handleClick}
               selectUser={selectUser}
               showInfoWindow={showInfoWindow}
@@ -264,9 +309,8 @@ export default function GroupList() {
                     onApply={handleDialogApply}
                     onClose={handleDialogClose}
                 />
-            )}
+            )}            
 
-            <AddGroupButton/>
         </React.Fragment>
     );
 }

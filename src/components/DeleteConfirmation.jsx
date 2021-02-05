@@ -40,7 +40,7 @@ export default function DeleteConfirmation({ name, open, onClose, onApply }) {
         <Button variant="outlined" color="primary" onClick={handleOnClose}>
           Cancel
         </Button>
-        <Button variant="outlined" color="primary" onClick={onApply} disabled={confirmationInput !== name}>
+        <Button variant="contained"  style={{color:"#ffffff",backgroundColor:'#D9001B'}}  onClick={onApply} disabled={confirmationInput !== name}>
           Delete
         </Button>
       </DialogActions>

@@ -36,6 +36,7 @@ const theme = createMuiTheme({
 
 class App extends Component {
   componentDidMount() {
+    console.log("testing...");
     // loadReCaptcha(captchaSiteKey);
   }
 

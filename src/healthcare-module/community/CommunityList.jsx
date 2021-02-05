@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     marginBottom: {
         marginBottom: theme.spacing(2)
-    }
+    },
 }));
 
 
@@ -39,7 +39,7 @@ const MyMapComponent = compose(withScriptjs, withGoogleMap)((props) => {
         return (
             <GoogleMap defaultZoom={8} defaultCenter={props.defaultCenter}>
                 {props.markers.map((marker, index) => (
-                    <Marker key={"marker-" + index} onClick={() => props.handleClick(marker)}
+                    <Marker key={"marker-" + index}onClick={() => props.handleClick(marker)}
                             position={{lat: marker.lat, lng: marker.lng}}>
 
                         {props.selectUser === marker &&
@@ -145,7 +145,7 @@ export default function CommunityList() {
                             <Grid item>
                                 <Button
                                     variant="outlined"
-                                    color="primary"
+                                    style={{color:"#ffffff",backgroundColor:'#D9001B'}}
                                     size="small"
                                     startIcon={<DeleteIcon/>}
                                     onClick={() => handleDeleteCommunity(value)}
@@ -236,7 +236,10 @@ export default function CommunityList() {
                     {message}
                 </Alert>
             )}
-            <AddCommunityButton/>
+
+            <Grid container>
+                <AddCommunityButton/>
+            </Grid>
 
             <MUIDataTable
                 title={'Community List'}
@@ -246,6 +249,9 @@ export default function CommunityList() {
                 className={classes.marginTopBottom}
             />
 
+            <Grid container style={{marginTop: "10px", marginBottom: "20px"}}>
+                <AddCommunityButton />
+            </Grid>
 
             <MyMapComponent
                 handleClick={handleClick}
@@ -275,7 +281,6 @@ export default function CommunityList() {
                 />
             )}
 
-            <AddCommunityButton/>
         </React.Fragment>
     );
 }

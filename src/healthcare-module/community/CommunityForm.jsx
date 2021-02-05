@@ -6,7 +6,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Field, Form, Formik} from 'formik';
 import {renderTextArea, renderTextFieldEdit, renderTextFieldSelect} from '../../util/WtFields';
 import {addCommunity, updateCommunity} from './CommunityReducer';
-import {validationSchema} from './Validate'
+import {validationSchema} from './Validate';
+// import { values } from 'lodash';
 
 const useStyles = makeStyles((theme) => ({
     marginBottom: {
@@ -19,6 +20,15 @@ export default function CommunityForm({community}) {
     const history = useHistory();
     const dispatch = useDispatch();
     const {response} = useSelector((state) => state.community);
+    const [btnPressState,setBtnPressState] = useState(false);
+    // const [charLimit, setCharLimit] = useState(2);
+    const [descriptionCharLimit,setdescriptionCharLimit] = useState(50);
+    const [contentValue, setContentValue] = useState('');
+
+    const handleChange  = e => {
+        console.log(e.nativeEvent.data);
+        setContentValue(contentValue => e.nativeEvent.data);
+    };
 
     const [initialState, setInitialState] = useState({
         cid: null,
@@ -35,35 +45,27 @@ export default function CommunityForm({community}) {
         lng: ''
     });
 
-    useEffect(() => {
-        const fetchLocation = async () => {
-            if ("geolocation" in navigator) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    const c = position.coords;
-                    const latitude = c.latitude;
-                    const longitude = c.longitude;
-                    setInitialState({
-                        ...initialState,
-                        lat: latitude,
-                        lng: longitude
-                    })
-                });
-                return true;
-            }
-        };
-        fetchLocation().then();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
 
     const countryList = require('country-list');
 
+    let _countryNames = [];
+    _countryNames.push("United States of America");
+    _countryNames.push("Canada");
+    countryList.getNames().map((country) => {
+        if (country !== "United States of America" && country !== "Canada") {
+            _countryNames.push(country);
+        }
+        
+        return country;
+    })
 
     const submitForm = (data) => {
-        if (data.cid) {
+        if (data.cid) {                   
             dispatch(updateCommunity(data));
+            setBtnPressState(true) ;
         } else {
             dispatch(addCommunity(data));
+            setBtnPressState(true) 
         }
     };
 
@@ -76,6 +78,7 @@ export default function CommunityForm({community}) {
                 setShowError(true);
             }
         }
+      
     }, [response]);
 
     return (
@@ -83,6 +86,11 @@ export default function CommunityForm({community}) {
             {showError && (
                 <Alert severity="error" className={classes.marginBottom} onClose={() => setShowError(false)}>
                     {response.message}
+                </Alert>
+            )}
+            {btnPressState && (
+                <Alert severity="success" className={classes.marginBottom} onClose={() => setBtnPressState(false)}>
+                    Data add successfully.
                 </Alert>
             )}
             <Card>
@@ -94,15 +102,14 @@ export default function CommunityForm({community}) {
                         onSubmit={(values) => submitForm(values)}
                     >
                         {() => (
-                            <Form>
+                            <Form autoComplete="off">
                                 <Grid container spacing={2}>
                                     <Grid item xl={6} md={6} xs={12}>
                                         <Field name="communityName" label="Name *" component={renderTextFieldEdit}/>
                                     </Grid>
                                     <Grid item xl={6} md={6} xs={12}>
-                                        <Field name="communityCountry" label="Country *"
-                                               component={renderTextFieldSelect}>
-                                            {countryList.getNames().map((country) => (
+                                        <Field name="communityCountry" label="Country *" component={renderTextFieldSelect}>
+                                            {_countryNames.map((country) => (
                                                 <MenuItem key={country} value={country}>
                                                     {country}
                                                 </MenuItem>
@@ -125,28 +132,29 @@ export default function CommunityForm({community}) {
                                     <Grid item xl={12} md={12} xs={12}>
                                         <Field name="communityAddress" label="Address" component={renderTextFieldEdit}/>
                                     </Grid>
-                                    <Grid item xl={6} md={6} xs={12}>
-                                        <Field name="lat" label="Latitude" component={renderTextFieldEdit}/>
-                                    </Grid>
-                                    <Grid item xl={6} md={6} xs={12}>
-                                        <Field name="lng" label="Longitude" component={renderTextFieldEdit}/>
+                                    
+                                    <Grid item xl={12} md={12} xs={12}>
+                                        <Field name="communityDescription" label="Description *" inputProps={{ maxLength: 50 }} component={renderTextArea} />
                                     </Grid>
                                     <Grid item xl={12} md={12} xs={12}>
-                                        <Field name="communityDescription" label="Description *"
-                                               component={renderTextArea}/>
-                                    </Grid>
-                                    <Grid item xl={12} md={12} xs={12}>
-                                        <Grid container spacing={2} justify="center">
-                                            <Grid item>
-                                                <Button variant="contained" color="default" component={Link}
-                                                        to={'/healthcare/community'}>
-                                                    Back
-                                                </Button>
+                                        <Grid container spacing={5} justify="center">
+                                            <Grid item xl={10} md={10} xs={10}>
+                                                <Grid container spacing={9} justify="center">
+                                                    <Grid item>
+                                                        <Button variant="contained" color="default" component={Link}
+                                                                to={'/healthcare/community'}>
+                                                            Back
+                                                        </Button>
+                                                    </Grid>
+                                                    <Grid item>
+                                                        <Button variant="contained" color="primary" type="submit">
+                                                            Save Information
+                                                        </Button>
+                                                    </Grid>
+                                                </Grid>
                                             </Grid>
-                                            <Grid item>
-                                                <Button variant="contained" color="primary" type="submit">
-                                                    Save Information
-                                                </Button>
+                                            <Grid item xl={2} md={2} xs={2}>
+                                                    <h2 style={{fontSize:"10px"}}>remaining: {`${descriptionCharLimit} `}</h2>
                                             </Grid>
                                         </Grid>
                                     </Grid>

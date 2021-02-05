@@ -4,6 +4,15 @@
   min-height: 90vh;
 }
 
+.img-adjust-container{
+  margin-left: 30px;
+  margin-top: 10px;
+}
+
+.nav-left-menutext-color{
+  color: #015478;
+}
+
 .system-message-container {
   margin-top: 10px;
   margin-bottom: 30px;
@@ -238,3 +247,45 @@ h3 {
 .MuiGrid-spacing-xs-1 {
   width: inherit !important;
 }
+.w-100{
+  width: 100%;
+}
+.d-flex{
+  display: flex;
+}
+.align-items-center{
+  align-items: center;
+}
+.justify-content-center{
+  justify-content: center;
+}
+.justify-content-between{
+  justify-content: space-between;
+}
+.justify-content-start{
+  justify-content: flex-start;
+}
+.justify-content-end{
+  justify-content: flex-end;
+}
+.f16{
+  font-size: 16px;
+}
+.btn{
+  background-color: transparent;
+  padding: .25rem .5rem;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover{
+  color: rgba(0, 0, 0, 0.7);
+}
+.btn:focus{
+  outline: none;
+}
+.topBottom{
+  animation: topBottom 0.5s linear 0s 1 forwards;
+  overflow: hidden;
+
+}
+
