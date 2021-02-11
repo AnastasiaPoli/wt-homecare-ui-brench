@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.63b57725.chunk.css",
+    "main.js": "/static/js/main.07a6946f.chunk.js",
+    "main.js.map": "/static/js/main.07a6946f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f120ee96.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f120ee96.js.map",
+    "static/css/2.33c2de3b.chunk.css": "/static/css/2.33c2de3b.chunk.css",
+    "static/js/2.84e40845.chunk.js": "/static/js/2.84e40845.chunk.js",
+    "static/js/2.84e40845.chunk.js.map": "/static/js/2.84e40845.chunk.js.map",
+    "static/js/3.11277eae.chunk.js": "/static/js/3.11277eae.chunk.js",
+    "static/js/3.11277eae.chunk.js.map": "/static/js/3.11277eae.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.33c2de3b.chunk.css.map": "/static/css/2.33c2de3b.chunk.css.map",
+    "static/css/main.63b57725.chunk.css.map": "/static/css/main.63b57725.chunk.css.map",
+    "static/js/2.84e40845.chunk.js.LICENSE.txt": "/static/js/2.84e40845.chunk.js.LICENSE.txt",
+    "static/media/all.css": "/static/media/fa-solid-900.46fdbd2d.woff",
+    "static/media/logo_noBG.png": "/static/media/logo_noBG.f4a91b45.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f120ee96.js",
+    "static/css/2.33c2de3b.chunk.css",
+    "static/js/2.84e40845.chunk.js",
+    "static/css/main.63b57725.chunk.css",
+    "static/js/main.07a6946f.chunk.js"
+  ]
+}
