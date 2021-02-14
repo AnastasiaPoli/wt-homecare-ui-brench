@@ -90,6 +90,12 @@ const useStyles = makeStyles((theme) => ({
     background: "#015478",
     marginTop: "1rem",
   },
+  deleteIcon: {
+    color: "#E6717C",
+  },
+  addIcon: {
+    color: "#015478",
+  },
 }));
 
 const groupList = [
@@ -105,15 +111,12 @@ export default function ResidentForm({ resident }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  console.log("resident", resident);
-
   const { response } = useSelector((state) => state.resident);
-
-  console.log(resident);
 
   useEffect(() => dispatch(fetchResidentList()), []);
 
   const [condition, setCondition] = useState("");
+  const [conditionArr, setConditionArr] = useState([]);
 
   const [initialState, setInitialState] = useState({
     pain: null,
@@ -121,23 +124,27 @@ export default function ResidentForm({ resident }) {
     firstName: "",
     lastName: "",
     otherNames: "",
-    dob: "15/05/2021",
+    // dob: "15/05/2021",
+    dob: "",
     maritalStatus: "",
     gender: "",
     emergencyContactPhone: "",
     emergencyContactName: "",
-    knownHealthIssues: "",
+    knownHealthIssues: [],
     governmentId: "",
     specialNotes: "",
     residentPhoto: "",
   });
 
   const submitForm = (data) => {
+    data.knownHealthIssues = conditionArr;
+    data.dob = data.dob.split("-").reverse().join("/");
+
+    console.log(data);
+
     if (data.pain) {
-      // data.dob = data.dob.split("-").reverse().join("/");
       dispatch(updateResident(data));
     } else {
-      // data.dob = data.dob.split("-").reverse().join("/");
       dispatch(addResident(data));
     }
   };
@@ -162,6 +169,9 @@ export default function ResidentForm({ resident }) {
       }));
     }
   }, [resident]);
+
+  console.log("conditionArr", conditionArr);
+  console.log("condition", condition);
 
   return (
     <React.Fragment>
@@ -243,8 +253,6 @@ export default function ResidentForm({ resident }) {
                             name="dob"
                             label="Date Of Birth"
                             component={renderDatePicker}
-                            // format="dd/mm/yyyy"
-                            // format="DD-MM-YYYY"
                           />
                         </Grid>
                       </Grid>
@@ -353,61 +361,59 @@ export default function ResidentForm({ resident }) {
                           md={5}
                           xs={12}
                         >
-                          <p>Known Medical Condition</p>
+                          <Typography>Known Medical Condition</Typography>
 
-                          <Field
+                          {/* <Field
                             name="knownHealthIssues"
                             label="Medical Condition"
                             component={renderTextFieldEdit}
-                          />
+                          /> */}
 
-                          {/* {!!values?.knownHealthIssues?.length &&
-                            values.knownHealthIssues.map((condition, index) => (
-                              <>
-                                <span>
-                                  {condition}
-                                </span>
-
-                                <span
-                                  onClick={() =>
-                                    setInitialState((initialState) => {
-                                      let newArr =
-                                        initialState.knownHealthIssues;
-                                      newArr.splice(
-                                        index,
-                                        1
-                                      )({
-                                        ...initialState,
-                                        knownHealthIssues: newArr,
-                                      });
-                                    })
-                                  }
-                                >
-                                  <DeleteIcon />
-                                </span>
-                                <br />
-                              </>
+                          {!!conditionArr.length &&
+                            conditionArr.map((condition, index) => (
+                              <Grid container alignItems="center" spacing={2}>
+                                <Grid item xl={11} md={11} xs={11}>
+                                  <Typography>{condition}</Typography>
+                                </Grid>
+                                <Grid item xl={1} md={1} xs={1}>
+                                  <span
+                                    onClick={() => {
+                                      setConditionArr(
+                                        conditionArr.filter(
+                                          (i, itemIndex) => itemIndex !== index
+                                        )
+                                      );
+                                    }}
+                                  >
+                                    <DeleteIcon
+                                      className={classes.deleteIcon}
+                                    />
+                                  </span>
+                                </Grid>
+                              </Grid>
                             ))}
 
-                          <Field
-                            label="Medical Condition"
-                            component={renderTextFieldEdit}
-                            value={condition}
-                            onChange={(e) => setCondition(e.target.value)}
-                          />
-                          <span
-                            onClick={() =>
-                              setInitialState((initialState) => ({
-                                ...initialState,
-                                knownHealthIssues: [
-                                  ...initialState.knownHealthIssues,
-                                  condition,
-                                ],
-                              }))
-                            }
-                          >
-                            <AddCircleIcon />
-                          </span> */}
+                          <Grid container alignItems="center" spacing={2}>
+                            <Grid item xl={11} md={11} xs={11}>
+                              <Field
+                                label="Medical Condition"
+                                component={renderTextFieldEdit}
+                                value={condition}
+                                onChange={(e) => setCondition(e.target.value)}
+                              />
+                            </Grid>
+
+                            <Grid item xl={1} md={1} xs={1}>
+                              <span
+                                onClick={() => {
+                                  setConditionArr([...conditionArr, condition]);
+                                  setCondition("");
+                                }}
+                              >
+                                <AddCircleIcon className={classes.addIcon} />
+                              </span>
+                            </Grid>
+                          </Grid>
                         </Grid>
                       </Grid>
 

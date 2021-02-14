@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import {
-  clearResponse,
-  deleteResident,
-  fetchResidentList,
-} from "./ResidentReducer";
+import { clearResponse, deleteVital, fetchVitalList } from "./VitalReducer";
 import { useDispatch, useSelector } from "react-redux";
 import MUIDataTable from "mui-datatables";
 import EditIcon from "@material-ui/icons/Edit";
@@ -15,6 +11,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 import DeleteConfirmation from "../../components/DeleteConfirmation";
 import Alert from "@material-ui/lab/Alert";
 import DEFAULT_IMAGE from "../../images/default_img.svg";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -38,26 +35,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ResidentTable() {
+function VitalTable() {
+  const { id } = useParams();
+
+
   const dispatch = useDispatch();
 
-  const { residentList, response } = useSelector((state) => state.resident);
+  const { vitalList, response } = useSelector((state) => state.vital);
 
-  console.log(residentList);
+  console.log("vitalList", vitalList);
 
-  useEffect(() => dispatch(fetchResidentList()), []);
+  // useEffect(() => dispatch(fetchVitalList()), []);
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchVitalList(id));
+    }
+  }, []);
 
-  const [resident, setResident] = useState(null);
+
+  const [vital, setVital] = useState(null);
 
   const handleDeleteGroup = (id) => {
-    setResident(residentList.find((resident) => resident.pain === id));
+    setVital(vitalList.find((vital) => vital.pain === id));
     setDialogOpen(true);
   };
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleDialogClose = () => setDialogOpen(false);
   const handleDialogApply = () => {
-    dispatch(deleteResident(resident.pain));
+    dispatch(deleteVital(vital.pain));
     setDialogOpen(false);
   };
 
@@ -91,32 +97,19 @@ function ResidentTable() {
 
   const columns = [
     {
-      name: "residentPhoto",
-      label: "Photo",
+      name: "reportedDate",
+      label: "Date",
       options: {
         filter: false,
         sort: false,
         setCellHeaderProps: (value) => ({
           style: { fontWeight: "bold", color: "#008080" },
         }),
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return (
-            <Grid container spacing={1} justify="center">
-              <Grid item>
-                <img
-                  className={classes.img}
-                  src={value || DEFAULT_IMAGE}
-                  alt="..."
-                />
-              </Grid>
-            </Grid>
-          );
-        },
       },
     },
     {
-      name: "firstName",
-      label: "Name",
+      name: "reportedTime",
+      label: "Time",
       options: {
         filter: false,
         sort: true,
@@ -126,8 +119,8 @@ function ResidentTable() {
       },
     },
     {
-      name: "homeAddress",
-      label: "Group",
+      name: "pulse	",
+      label: "Pulse",
       options: {
         filter: false,
         sort: true,
@@ -136,6 +129,40 @@ function ResidentTable() {
         }),
       },
     },
+    {
+      name: "bloodSugar",
+      label: "Blood Sug.",
+      options: {
+        filter: false,
+        sort: true,
+        setCellHeaderProps: (value) => ({
+          style: { fontWeight: "bold", color: "#008080" },
+        }),
+      },
+    },
+    {
+      name: "temperature",
+      label: "Temperature",
+      options: {
+        filter: false,
+        sort: true,
+        setCellHeaderProps: (value) => ({
+          style: { fontWeight: "bold", color: "#008080" },
+        }),
+      },
+    },
+    {
+      name: "bloodPressure",
+      label: "Blood pressure",
+      options: {
+        filter: false,
+        sort: true,
+        setCellHeaderProps: (value) => ({
+          style: { fontWeight: "bold", color: "#008080" },
+        }),
+      },
+    },
+
     {
       name: "pain",
       label: "Actions",
@@ -152,25 +179,26 @@ function ResidentTable() {
               <Grid item>
                 <Button
                   variant="outlined"
-                  color="primary"
-                  size="small"
-                  startIcon={<EditIcon />}
-                  component={Link}
-                  to={`/healthcare/resident/${value}/edit`}
-                >
-                  Edit
-                </Button>
-              </Grid>
-              <Grid item>
-                <Button
-                  variant="outlined"
                   color="secondary"
                   size="small"
                   startIcon={<VisibilityIcon />}
                   component={Link}
-                  to={`/healthcare/resident/${value}/view`}
+                  to={`/healthcare/vital/${value}/view`}
                 >
                   View
+                </Button>
+              </Grid>
+
+              <Grid item>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  size="small"
+                  startIcon={<EditIcon />}
+                  component={Link}
+                  to={`/healthcare/vital/${value}/edit`}
+                >
+                  Edit
                 </Button>
               </Grid>
 
@@ -214,15 +242,15 @@ function ResidentTable() {
       )}
 
       <MUIDataTable
-        title={"Resident List"}
-        data={residentList}
+        title={"Vital List"}
+        data={vitalList}
         columns={columns}
         options={options}
       />
 
-      {resident && (
+      {vital && (
         <DeleteConfirmation
-          name={`${resident.firstName} ${resident.lastName}`}
+          name={`${vital.firstName} ${vital.lastName}`}
           open={dialogOpen}
           onApply={handleDialogApply}
           onClose={handleDialogClose}
@@ -232,4 +260,4 @@ function ResidentTable() {
   );
 }
 
-export default ResidentTable;
+export default VitalTable;

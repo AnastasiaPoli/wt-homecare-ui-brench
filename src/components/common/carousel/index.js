@@ -1,65 +1,27 @@
-import React from "react";
-import ItemsCarousel from "react-items-carousel";
-import range from "lodash/range";
+import React, { Component } from "react";
+import Slider from "react-slick";
+import { makeStyles } from "@material-ui/core";
 
-export default class Carousel extends React.Component {
-  
-//     state = {
-//     children: [],
-//     activeItemIndex: 0,
-//   };
+const useStyles = makeStyles((theme) => ({
+  carousel_container: {
+    width: "100%",
+    // border: "2px solid",
+    padding: "1rem 0",
+  },
+}));
+export const Carousel = ({ children, className }) => {
+  const classes = useStyles();
 
-//   componentWillMount() {
-//     this.setState({
-//       children: [],
-//       activeItemIndex: 0,
-//     });
-
-//     setTimeout(() => {
-//       this.setState({
-//         children: createChildren(20),
-//       });
-//     }, 100);
-//   }
-
-  createChildren = (n) =>
-    range(n).map((i) => (
-      <div key={i} style={{ height: 200, background: "#333" }}>
-        {i}
-      </div>
-    ));
-
-  changeActiveItem = (activeItemIndex) => this.setState({ activeItemIndex });
-
-  render() {
-    const { activeItemIndex, children } = this.state;
-
-    return (
-      <ItemsCarousel
-        // Placeholder configurations
-        enablePlaceholder
-        numberOfPlaceholderItems={5}
-        minimumPlaceholderTime={1000}
-        placeholderItem={
-          <div style={{ height: 200, background: "#900" }}>Placeholder</div>
-        }
-        // Carousel configurations
-        numberOfCards={3}
-        gutter={12}
-        showSlither={true}
-        firstAndLastGutter={true}
-        freeScrolling={false}
-        // Active item configurations
-        requestToChangeActive={this.changeActiveItem}
-        activeItemIndex={activeItemIndex}
-        activePosition={"center"}
-        chevronWidth={24}
-        rightChevron={">"}
-        leftChevron={"<"}
-        outsideChevron={false}
-      >
-        {children}
-      </ItemsCarousel>
-    );
-  }
-}
+  const settings = {
+    autoPlay: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+  };
+  return (
+    <div className={`${classes.carousel_container} ${className}`}>
+      <Slider {...settings}>{children}</Slider>
+    </div>
+  );
+};

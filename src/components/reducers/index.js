@@ -8,6 +8,7 @@ import accountReducer from "./accountReducer";
 import groupReducer from "../../healthcare-module/group/GroupReducer";
 import communityReducer from "../../healthcare-module/community/CommunityReducer";
 import residentReducer from "../../healthcare-module/resident/ResidentReducer";
+import vitalReducer from "../../healthcare-module/vital/VitalReducer";
 
 export default combineReducers({
   form: formReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   group: groupReducer,
   community: communityReducer,
   resident: residentReducer,
+  vital: vitalReducer,
 });

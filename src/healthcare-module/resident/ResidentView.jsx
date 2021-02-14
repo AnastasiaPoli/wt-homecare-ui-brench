@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchResident } from "./ResidentReducer";
 import Spinner from "../../util/Spinner";
-import Carousel from "../../components/common/carousel";
+import { Carousel } from "../../components/common/carousel";
 
 import DEFAULT_IMAGE from "../../images/default_img.svg";
 
@@ -24,9 +24,12 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: "70%",
   },
-  // cart_nested_containers :{
-  //   textAlign:'ce'
-  // }
+  slider_img: {
+    width: "120px",
+  },
+  carousel_item: {
+    textAlign: "center",
+  },
 }));
 
 export default function ResidentView() {
@@ -40,10 +43,6 @@ export default function ResidentView() {
       dispatch(fetchResident(id));
     }
   }, []);
-
-  // useEffect(() => {
-  //   console.log("=====================", RESIDENT);
-  // }, [RESIDENT]);
 
   if (LOAD_DATA) return <Spinner loading={LOAD_DATA} />;
 
@@ -135,36 +134,54 @@ export default function ResidentView() {
               <Typography color="primary" variant="h5" gutterBottom>
                 Medication Chart
               </Typography>
-
-              {/* <Carousel>
-                <img
-                  className={classes.image}
-                  src={RESIDENT?.residentPhoto || DEFAULT_IMAGE}
-                  alt="..."
-                />
-                <img
-                  className={classes.image}
-                  src={RESIDENT?.residentPhoto || DEFAULT_IMAGE}
-                  alt="..."
-                />
-                <img
-                  className={classes.image}
-                  src={RESIDENT?.residentPhoto || DEFAULT_IMAGE}
-                  alt="..."
-                />
-              </Carousel> */}
+              <Carousel>
+                {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                  <div key={i} className={classes.carousel_item}>
+                    <img
+                      style={{ display: "inline-block" }}
+                      className={classes.slider_img}
+                      src={DEFAULT_IMAGE}
+                      alt="..."
+                    />
+                  </div>
+                ))}
+              </Carousel>
             </Grid>
 
             <Grid justify="center" container>
               <Typography color="primary" variant="h5" gutterBottom>
                 Vitals
               </Typography>
+              <Carousel>
+                {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                  <div key={i} className={classes.carousel_item}>
+                    <img
+                      style={{ display: "inline-block" }}
+                      className={classes.slider_img}
+                      src={DEFAULT_IMAGE}
+                      alt="..."
+                    />
+                  </div>
+                ))}
+              </Carousel>
             </Grid>
 
             <Grid justify="center" container>
               <Typography color="primary" variant="h5" gutterBottom>
                 Incidents
               </Typography>
+              <Carousel>
+                {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+                  <div key={i} className={classes.carousel_item}>
+                    <img
+                      style={{ display: "inline-block" }}
+                      className={classes.slider_img}
+                      src={DEFAULT_IMAGE}
+                      alt="..."
+                    />
+                  </div>
+                ))}
+              </Carousel>
             </Grid>
           </Grid>
         </CardContent>

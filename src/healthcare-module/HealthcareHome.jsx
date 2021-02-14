@@ -24,6 +24,9 @@ import GroupEdit from "./group/GroupEdit";
 import CommunityList from "./community/CommunityList";
 import CommunityAdd from "./community/CommunityAdd";
 import CommunityEdit from "./community/CommunityEdit";
+import VitalHome from "./vital/VitalHome";
+import VitalAdd from "./vital/VitalAdd";
+import VitalEdit from "./vital/VitalEdit";
 import HealthcareReportHome from "./report/HealthcareReportHome";
 import ReactLogo from "../images/u47.svg";
 import "../App.css";
@@ -97,6 +100,12 @@ export default function HealthcareHome() {
                   primary="Manage Communities"
                 />
               </ListItem>
+              <ListItem button component={NavLink} to="/healthcare/vital/123">
+                <ListItemText
+                  className={"nav-left-menutext-color"}
+                  primary="Manage Vitals"
+                />
+              </ListItem>
               <ListItem button component={NavLink} to="/healthcare/report">
                 <ListItemText
                   className={"nav-left-menutext-color"}
@@ -165,6 +174,25 @@ export default function HealthcareHome() {
                   path="/healthcare/community/:id/edit"
                   component={CommunityEdit}
                 />
+
+                {/* <PrivateRoute
+                  path="/healthcare/vital/:id"
+                  component={ResidentView}
+                /> */}
+
+                <PrivateRoute
+                  exact
+                  path="/healthcare/vital/:id"
+                  component={VitalHome}
+                />
+                <PrivateRoute
+                  path="/healthcare/vital/add"
+                  component={VitalAdd}
+                />
+                {/* <PrivateRoute
+                  path="/healthcare/vital/:id/edit"
+                  component={VitalEdit}
+                /> */}
 
                 <PrivateRoute
                   path="/healthcare/report"
